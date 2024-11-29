@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      <div>
+      <div className={'flex gap-20'}>
         <a href="https://vite.dev" target="_blank" rel="noreferrer">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
@@ -16,7 +16,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <h1 className={'text-green-400'}>Vite + React</h1>
       <div className="card">
         <button onClick={() => {
             setCount((count) => count + 1)
