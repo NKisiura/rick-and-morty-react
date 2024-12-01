@@ -1,0 +1,1 @@
+import{j as e,L as r}from"./index-BdQPleiD.js";const s=()=>(console.log("characters page loaded"),e.jsxs("div",{children:[e.jsx("div",{children:"characters page"}),e.jsx(r,{to:"1",children:" to character details"})]}));export{s as Component};

@@ -1,0 +1,1 @@
+import{j as o,L as s}from"./index-BdQPleiD.js";const t=()=>(console.log("locations page loaded"),o.jsxs("div",{children:[o.jsx("div",{children:"locations page"}),o.jsx(s,{to:"1",children:"to locations details"})]}));export{t as Component};
