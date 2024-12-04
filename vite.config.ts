@@ -7,7 +7,11 @@ export default defineConfig({
   base: "/rick-and-morty-react",
   resolve: {
     alias: {
-      "@pages": "/src/pages",
+      "@app": "/src/app",
+      "@pages": "/src/app/pages",
+      "@context": "/src/app/context",
+      "@hooks": "/src/app/hooks",
+      "@ui": "/src/app/ui",
     },
   },
 });

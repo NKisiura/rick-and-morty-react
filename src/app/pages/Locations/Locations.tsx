@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 
-export const Component = () => {
+export const Locations = () => {
   console.log("locations page loaded");
 
   return (
@@ -10,3 +10,5 @@ export const Component = () => {
     </div>
   );
 };
+
+export default Locations;

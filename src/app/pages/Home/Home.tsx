@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 
-export const HomePage = () => {
+export const Home = () => {
   return (
     <div>
       <div>Home page</div>

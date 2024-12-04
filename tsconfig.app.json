@@ -22,7 +22,11 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "paths": {
-      "@pages/*": ["./src/pages/*"],
+      "@app/*": ["./src/app/*"],
+      "@pages/*": ["./src/app/pages/*"],
+      "@context/*": ["./src/app/context/*"],
+      "@hooks/*": ["./src/app/hooks/*"],
+      "@ui/*": ["./src/app/ui/*"]
     }
   },
   "include": ["src"]
