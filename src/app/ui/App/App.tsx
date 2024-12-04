@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router";
+import { AppContainer } from "@ui/AppContainer";
 import { AppLayout } from "@ui/AppLayout";
 import { AppPageLoader } from "@ui/AppPageLoader";
 import { Home } from "@pages/Home";
@@ -16,48 +17,50 @@ const LocationDetails = lazy(
 
 export const App = () => {
   return (
-    <AppLayout>
-      <Routes>
-        <Route path="/" element={<Navigate to="home" />}></Route>
-        <Route path="home" element={<Home />}></Route>
-        <Route path="characters">
-          <Route
-            index
-            element={
-              <Suspense key="characters" fallback={<AppPageLoader />}>
-                <Characters />
-              </Suspense>
-            }
-          ></Route>
-          <Route
-            path=":id"
-            element={
-              <Suspense key="character-details" fallback={<AppPageLoader />}>
-                <CharacterDetails />
-              </Suspense>
-            }
-          ></Route>
-        </Route>
-        <Route path="locations">
-          <Route
-            index
-            element={
-              <Suspense key="locations" fallback={<AppPageLoader />}>
-                <Locations />
-              </Suspense>
-            }
-          ></Route>
-          <Route
-            path=":id"
-            element={
-              <Suspense key="location-details" fallback={<AppPageLoader />}>
-                <LocationDetails />
-              </Suspense>
-            }
-          ></Route>
-        </Route>
-        <Route path="*" element={<UnknownRoute />}></Route>
-      </Routes>
-    </AppLayout>
+    <AppContainer>
+      <AppLayout>
+        <Routes>
+          <Route path="/" element={<Navigate to="home" />}></Route>
+          <Route path="home" element={<Home />}></Route>
+          <Route path="characters">
+            <Route
+              index
+              element={
+                <Suspense key="characters" fallback={<AppPageLoader />}>
+                  <Characters />
+                </Suspense>
+              }
+            ></Route>
+            <Route
+              path=":id"
+              element={
+                <Suspense key="character-details" fallback={<AppPageLoader />}>
+                  <CharacterDetails />
+                </Suspense>
+              }
+            ></Route>
+          </Route>
+          <Route path="locations">
+            <Route
+              index
+              element={
+                <Suspense key="locations" fallback={<AppPageLoader />}>
+                  <Locations />
+                </Suspense>
+              }
+            ></Route>
+            <Route
+              path=":id"
+              element={
+                <Suspense key="location-details" fallback={<AppPageLoader />}>
+                  <LocationDetails />
+                </Suspense>
+              }
+            ></Route>
+          </Route>
+          <Route path="*" element={<UnknownRoute />}></Route>
+        </Routes>
+      </AppLayout>
+    </AppContainer>
   );
 };
