@@ -1,0 +1,1 @@
+import{j as r,L as a}from"./index-CNrlRggC.js";const s=()=>(console.log("characters page loaded"),r.jsxs("div",{children:[r.jsx("div",{children:"characters page"}),r.jsx(a,{to:"1",children:" to character details"})]}));export{s as Characters,s as default};

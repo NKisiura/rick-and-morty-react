@@ -1,0 +1,1 @@
+import{j as o,L as s}from"./index-CNrlRggC.js";const i=()=>(console.log("locations page loaded"),o.jsxs("div",{children:[o.jsx("div",{children:"locations page"}),o.jsx(s,{to:"1",children:"to locations details"})]}));export{i as Locations,i as default};
