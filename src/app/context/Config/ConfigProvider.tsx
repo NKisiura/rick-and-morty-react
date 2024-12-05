@@ -1,11 +1,13 @@
 import { createContext, ReactNode } from "react";
 
 interface Config {
-  apiUrl: string;
+  apiBaseUrl: string;
+  ghRepoUrl: string;
 }
 
 const config: Config = {
-  apiUrl: "https://rickandmortyapi.com/api",
+  apiBaseUrl: "https://rickandmortyapi.com/api",
+  ghRepoUrl: "https://github.com/NKisiura/rick-and-morty-react",
 };
 
 interface ConfigProviderProps {
