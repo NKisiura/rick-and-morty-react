@@ -2,6 +2,8 @@ import { ReactNode } from "react";
 import { NavLink } from "react-router";
 import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { useConfig } from "@hooks/useConfig";
 
 const navbarLinkClassName =
@@ -40,13 +42,18 @@ export const NavbarGithubLink = ({
 
   return (
     <a
-      className={twMerge(navbarLinkClassName, extraClasses)}
+      className={twMerge(
+        navbarLinkClassName,
+        "items-center gap-1",
+        extraClasses,
+      )}
       href={ghRepoUrl}
       target="_blank"
       rel="noreferrer"
       role="link"
       onClick={onClick}
     >
+      <FontAwesomeIcon icon={faGithub} />
       NKisiura
     </a>
   );
