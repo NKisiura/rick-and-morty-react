@@ -8,10 +8,12 @@ export default defineConfig({
   resolve: {
     alias: {
       "@app": "/src/app",
-      "@pages": "/src/app/pages",
       "@context": "/src/app/context",
       "@hooks": "/src/app/hooks",
+      "@store": "/src/app/store",
+      "@pages": "/src/app/pages",
       "@ui": "/src/app/ui",
+      "@features": "/src/app/features",
     },
   },
 });

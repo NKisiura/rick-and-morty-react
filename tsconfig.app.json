@@ -23,10 +23,12 @@
     "noUncheckedSideEffectImports": true,
     "paths": {
       "@app/*": ["./src/app/*"],
-      "@pages/*": ["./src/app/pages/*"],
       "@context/*": ["./src/app/context/*"],
       "@hooks/*": ["./src/app/hooks/*"],
-      "@ui/*": ["./src/app/ui/*"]
+      "@store/*": ["./src/app/store/*"],
+      "@pages/*": ["./src/app/pages/*"],
+      "@ui/*": ["./src/app/ui/*"],
+      "@features/*": ["./src/app/features/*"]
     }
   },
   "include": ["src"]
