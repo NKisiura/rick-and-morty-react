@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { BrowserRouter } from "react-router";
 import { Provider } from "react-redux";
-import { ConfigProvider } from "@context/Config";
+import { ConfigProvider } from "@app/context/Config";
 import { NextUIProvider } from "@nextui-org/react";
 import { store } from "@app/store";
 
