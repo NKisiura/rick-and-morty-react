@@ -1,29 +1,28 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Character } from "@features/characters/model";
+import { createSlice } from "@reduxjs/toolkit";
 
 interface CharactersState {
-  characters: Character[];
+  test: string;
 }
 
 const initialState: CharactersState = {
-  characters: [],
+  test: "test",
 };
 
 const charactersSlice = createSlice({
   name: "characters",
   initialState,
   reducers: {
-    charactersFulfilled: (state, action: PayloadAction<Character[]>) => {
-      state.characters = action.payload;
+    tested: (state) => {
+      state.test = "test";
     },
   },
   selectors: {
-    selectCharacters: ({ characters }) => characters,
+    selectTest: ({ test }) => test,
   },
 });
 
 const { reducer, actions, selectors } = charactersSlice;
 
 export const charactersReducer = reducer;
-export const { charactersFulfilled } = actions;
-export const { selectCharacters } = selectors;
+export const { tested } = actions;
+export const { selectTest } = selectors;

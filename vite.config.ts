@@ -10,10 +10,9 @@ export default defineConfig({
       "@app": "/src/app",
       "@context": "/src/app/context",
       "@hooks": "/src/app/hooks",
-      "@store": "/src/app/store",
+      "@features": "/src/app/features",
       "@pages": "/src/app/pages",
       "@ui": "/src/app/ui",
-      "@features": "/src/app/features",
     },
   },
 });
