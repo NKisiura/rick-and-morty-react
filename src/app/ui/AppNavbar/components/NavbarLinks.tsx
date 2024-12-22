@@ -4,7 +4,7 @@ import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import { useConfig } from "@hooks/useConfig";
+import { useConfig } from "@app/hooks/useConfig";
 
 const navbarLinkClassName =
   "relative inline-flex before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-0 before:rounded-full before:bg-success before:content-[''] before:transition-width hover:before:w-full";
