@@ -10,6 +10,7 @@ export default defineConfig({
       "@app": "/src/app",
       "@features": "/src/app/features",
       "@pages": "/src/app/pages",
+      "@shared": "/src/app/shared",
       "@ui": "/src/app/ui",
     },
   },
