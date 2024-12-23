@@ -14,5 +14,5 @@ export interface Character {
   readonly image: string | null;
   readonly episodeIds: number[] | null;
   readonly url: string | null;
-  readonly created: Date | null;
+  readonly created: string | null;
 }

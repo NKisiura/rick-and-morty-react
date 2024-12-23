@@ -5,7 +5,7 @@ export const LocationLiteAdapter = {
   fromDTO: ({ name, url }: LocationLiteDTO): LocationLite => {
     return {
       id: url ? extractEntityIdFromUrl(url) : null,
-      name: name,
+      name,
     };
   },
 };

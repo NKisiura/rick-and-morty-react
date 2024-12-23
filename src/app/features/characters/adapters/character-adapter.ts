@@ -20,16 +20,16 @@ export const CharacterAdapter = {
     return {
       id,
       name,
-      status: status ?? null,
-      species: species ?? null,
-      type: type ?? null,
-      gender: gender ?? null,
+      status: status ? status : null,
+      species: species ? species : null,
+      type: type ? type : null,
+      gender: gender ? gender : null,
       origin: origin ? LocationLiteAdapter.fromDTO(origin) : null,
       location: location ? LocationLiteAdapter.fromDTO(location) : null,
-      image: image ?? null,
+      image: image ? image : null,
       episodeIds: episode ? episode.map(extractEntityIdFromUrl) : null,
-      url: url ?? null,
-      created: created ? new Date(created) : null,
+      url: url ? url : null,
+      created: created ? created : null,
     };
   },
 };
