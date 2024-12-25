@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router";
 import { Provider } from "react-redux";
 import { ConfigProvider } from "@app/context/Config";
 import { NextUIProvider } from "@nextui-org/react";
-import { store } from "@app/store";
+import { store } from "@app/store/store.ts";
 
 interface AppContainerProps {
   children: ReactNode;
