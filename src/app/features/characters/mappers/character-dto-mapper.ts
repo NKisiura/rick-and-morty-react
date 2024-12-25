@@ -1,8 +1,12 @@
 import { extractEntityIdFromUrl } from "@shared/utils/extract-entity-id-from-url";
+import { DTOMapper } from "@shared/mappers";
 import { Character, CharacterDTO } from "@features/characters/model";
-import { LocationLiteAdapter } from "@features/locations/adapters";
+import { LocationLiteDTOMapper } from "@features/locations/mappers";
 
-export const CharacterAdapter = {
+export const CharacterDTOMapper: Pick<
+  DTOMapper<CharacterDTO, Character>,
+  "fromDTO"
+> = {
   fromDTO: ({
     id,
     name,
@@ -16,7 +20,7 @@ export const CharacterAdapter = {
     episode,
     url,
     created,
-  }: CharacterDTO): Character => {
+  }): Character => {
     return {
       id,
       name,
@@ -24,8 +28,8 @@ export const CharacterAdapter = {
       species: species ? species : null,
       type: type ? type : null,
       gender: gender ? gender : null,
-      origin: origin ? LocationLiteAdapter.fromDTO(origin) : null,
-      location: location ? LocationLiteAdapter.fromDTO(location) : null,
+      origin: origin ? LocationLiteDTOMapper.fromDTO(origin) : null,
+      location: location ? LocationLiteDTOMapper.fromDTO(location) : null,
       image: image ? image : null,
       episodeIds: episode ? episode.map(extractEntityIdFromUrl) : null,
       url: url ? url : null,
