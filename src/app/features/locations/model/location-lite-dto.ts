@@ -1,4 +1,4 @@
-export interface LocationLiteDTO {
+export interface LocationLiteDto {
   readonly name: string;
   readonly url?: string;
 }
