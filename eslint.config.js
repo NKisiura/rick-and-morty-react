@@ -29,6 +29,32 @@ export default tseslint.config(
     rules: {
       ...react.configs.recommended.rules,
       ...react.configs["jsx-runtime"].rules,
+      "@typescript-eslint/no-unnecessary-type-parameters": "off",
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          varsIgnorePattern: '^_',
+          argsIgnorePattern: '^_',
+        },
+      ],
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['lodash'],
+              message: 'Import [module] from lodash-es instead',
+            },
+          ],
+          paths: [
+            {
+              name: 'react',
+              importNames: ['default'],
+              message: "React doesn't need to be in scope since version 17",
+            },
+          ],
+        },
+      ],
     },
   },
 );
