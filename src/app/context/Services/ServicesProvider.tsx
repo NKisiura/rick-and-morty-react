@@ -4,7 +4,7 @@ import { useConfig } from "@app/hooks/useConfig";
 
 import { CharactersService } from "@features/characters/services";
 
-interface Services {
+export interface Services {
   charactersService: CharactersService;
 }
 

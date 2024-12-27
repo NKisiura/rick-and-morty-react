@@ -1,10 +1,9 @@
 import { ReactNode } from "react";
 import { BrowserRouter } from "react-router";
-import { Provider } from "react-redux";
+import { NextUIProvider } from "@nextui-org/react";
 import { ConfigProvider } from "@app/context/Config";
 import { ServicesProvider } from "@app/context/Services";
-import { NextUIProvider } from "@nextui-org/react";
-import { store } from "@app/store/store.ts";
+import { StoreProvider } from "@app/context/Store/StoreProvider.tsx";
 
 interface AppContainerProps {
   children: ReactNode;
@@ -14,11 +13,11 @@ export const AppContainer = ({ children }: AppContainerProps) => {
   return (
     <ConfigProvider>
       <ServicesProvider>
-        <Provider store={store}>
+        <StoreProvider>
           <BrowserRouter basename={import.meta.env.BASE_URL}>
             <NextUIProvider>{children}</NextUIProvider>
           </BrowserRouter>
-        </Provider>
+        </StoreProvider>
       </ServicesProvider>
     </ConfigProvider>
   );
