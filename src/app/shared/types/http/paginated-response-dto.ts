@@ -1,4 +1,4 @@
-export interface PaginatedResponseDTO<T> {
+export interface PaginatedResponse<T> {
   readonly info: PaginationInfo;
   readonly results: T[];
 }
