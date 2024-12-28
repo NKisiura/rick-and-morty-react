@@ -1,5 +1,6 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from "axios";
 import { HttpClient, HttpRequestConfig } from "./http-client.ts";
+import { BackendErrorResponse } from "@shared/types/http";
 
 export class AxiosHttpClient implements HttpClient {
   private readonly client: AxiosInstance;
@@ -63,16 +64,22 @@ export class AxiosHttpClient implements HttpClient {
   ): Promise<{
     data: ResponseData;
   }> {
-    const { data } = await this.client.request<ResponseData>({
-      ...config,
-      baseURL: this.baseUrl,
-      method: config.method,
-      headers: {
-        "content-type": "application/json",
-        ...config.headers,
-      },
-    });
+    try {
+      const { data } = await this.client.request<ResponseData>({
+        ...config,
+        baseURL: this.baseUrl,
+        method: config.method,
+        headers: {
+          "content-type": "application/json",
+          ...config.headers,
+        },
+      });
 
-    return { data };
+      return { data };
+    } catch (e) {
+      const { response, message } = e as AxiosError<BackendErrorResponse>;
+
+      throw new Error(response?.data.error ?? message);
+    }
   }
 }
