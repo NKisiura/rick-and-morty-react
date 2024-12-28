@@ -6,13 +6,21 @@ import { AppPageLoader } from "@ui/AppPageLoader";
 import { Home } from "@pages/Home";
 import { UnknownRoute } from "@pages/UnknownRoute";
 
-const Characters = lazy(() => import("@pages/Characters/Characters.tsx"));
-const CharacterDetails = lazy(
-  () => import("@pages/CharacterDetails/CharacterDetails.tsx"),
+const Characters = lazy(
+  () => import("@features/characters/ui/pages/Characters/Characters.tsx"),
 );
-const Locations = lazy(() => import("@pages/Locations/Locations.tsx"));
+const CharacterDetails = lazy(
+  () =>
+    import(
+      "@features/characters/ui/pages/CharacterDetails/CharacterDetails.tsx"
+    ),
+);
+const Locations = lazy(
+  () => import("@features/locations/ui/pages/Locations/Locations.tsx"),
+);
 const LocationDetails = lazy(
-  () => import("@pages/LocationDetails/LocationDetails.tsx"),
+  () =>
+    import("@features/locations/ui/pages/LocationDetails/LocationDetails.tsx"),
 );
 
 export const App = () => {
