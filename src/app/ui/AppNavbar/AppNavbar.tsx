@@ -1,3 +1,4 @@
+import logoUrl from "@assets/logo.svg";
 import { useState } from "react";
 import { Link } from "react-router";
 import {
@@ -43,7 +44,7 @@ export const AppNavbar = () => {
         <NavbarBrand>
           <Link to={"/home"} onClick={handleLinkClick}>
             <Image
-              src="./logo.svg"
+              src={logoUrl}
               width={164}
               height={50}
               alt="Rick and Morty logo"
