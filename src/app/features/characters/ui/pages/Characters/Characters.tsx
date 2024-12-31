@@ -9,6 +9,7 @@ import {
 } from "@features/characters/store";
 import {
   CharacterCard,
+  CharacterSkeletonCard,
   CharacterList,
 } from "@features/characters/ui/components";
 
@@ -34,8 +35,13 @@ export const Characters = () => {
   return (
     <div className="container py-4">
       {charactersLoadingStatus === "pending" && (
-        <div className="text-xl text-green-400">Loading...</div>
+        <CharacterList>
+          {Array.from({ length: 20 }).map((_, index) => (
+            <CharacterSkeletonCard key={index}></CharacterSkeletonCard>
+          ))}
+        </CharacterList>
       )}
+
       {charactersLoadingStatus === "succeeded" && (
         <CharacterList>
           {characters.map((character) => (
