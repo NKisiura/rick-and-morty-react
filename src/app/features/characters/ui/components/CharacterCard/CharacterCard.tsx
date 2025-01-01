@@ -23,8 +23,7 @@ export const CharacterCard = ({
           src={image ?? characterFallbackImageUrl}
           width={300}
           height={300}
-          className="max-h-[300px] w-full rounded-lg object-cover object-center sm:!h-full sm:max-h-full"
-          classNames={{ wrapper: "!max-w-full" }}
+          className="!h-full rounded-lg"
           alt="character image"
         ></Image>
       </CardBody>

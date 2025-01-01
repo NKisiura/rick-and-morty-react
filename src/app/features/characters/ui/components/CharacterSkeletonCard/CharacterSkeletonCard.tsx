@@ -4,10 +4,12 @@ export const CharacterSkeletonCard = () => {
   return (
     <Card>
       <CardHeader className="pb-0">
-        <Skeleton className="h-7 w-3/4 rounded-lg"></Skeleton>
+        <Skeleton className="h-7 w-3/5 rounded-lg"></Skeleton>
       </CardHeader>
       <CardBody>
-        <Skeleton className="h-[300px] max-h-full w-full rounded-lg sm:h-[272px] md:h-[336px] lg:h-[296px] xl:h-[276px] 2xl:h-[264px]"></Skeleton>
+        <Skeleton className="rounded-lg">
+          <div className="w-[300px] pt-[100%]"></div>
+        </Skeleton>
       </CardBody>
     </Card>
   );
