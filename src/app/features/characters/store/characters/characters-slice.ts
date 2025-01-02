@@ -2,12 +2,14 @@ import {
   createEntityAdapter,
   createSlice,
   EntityState,
+  PayloadAction,
 } from "@reduxjs/toolkit";
 import { LoadingStatus, PaginationInfo } from "@shared/types/http";
-import { Character } from "@features/characters/model";
+import { Character, CharacterFilter } from "@features/characters/model";
 import { getCharactersByFilter } from "./characters-actions.ts";
 
 interface CharactersState extends EntityState<Character, number> {
+  filter: CharacterFilter;
   paginationInfo: PaginationInfo | null;
   status: LoadingStatus;
   errorMessage: string | null;
@@ -16,6 +18,7 @@ interface CharactersState extends EntityState<Character, number> {
 const initialState: CharactersState = {
   ids: [],
   entities: {},
+  filter: {},
   paginationInfo: null,
   status: "idle",
   errorMessage: null,
@@ -28,6 +31,12 @@ const charactersSlice = createSlice({
   name: "characters",
   initialState,
   reducers: {
+    charactersFilterChanged(
+      state,
+      { payload }: PayloadAction<CharacterFilter>,
+    ) {
+      state.filter = payload;
+    },
     charactersViewLeft(state) {
       if (state.status !== "pending") {
         return initialState;
@@ -60,16 +69,18 @@ const charactersSlice = createSlice({
     selectCharactersPaginationInfo: ({ paginationInfo }) => paginationInfo,
     selectCharactersLoadingStatus: ({ status }) => status,
     selectCharactersErrorMessage: ({ errorMessage }) => errorMessage,
+    selectCharactersFilter: ({ filter }) => filter,
   },
 });
 
 const { reducer, actions, selectors } = charactersSlice;
 
 export const charactersReducer = reducer;
-export const { charactersViewLeft } = actions;
+export const { charactersFilterChanged, charactersViewLeft } = actions;
 export const {
   selectCharacters,
   selectCharactersPaginationInfo,
   selectCharactersLoadingStatus,
   selectCharactersErrorMessage,
+  selectCharactersFilter,
 } = selectors;
