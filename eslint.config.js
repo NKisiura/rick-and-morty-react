@@ -2,6 +2,7 @@ import js from "@eslint/js";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 import react from "eslint-plugin-react";
+import hooksPlugin from "eslint-plugin-react-hooks";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 
 export default tseslint.config(
@@ -25,10 +26,12 @@ export default tseslint.config(
     settings: { react: { version: "18.3" } },
     plugins: {
       react,
+      "react-hooks": hooksPlugin
     },
     rules: {
       ...react.configs.recommended.rules,
       ...react.configs["jsx-runtime"].rules,
+      ...hooksPlugin.configs.recommended.rules,
       "@typescript-eslint/no-unnecessary-type-parameters": "off",
       '@typescript-eslint/no-unused-vars': [
         'error',
