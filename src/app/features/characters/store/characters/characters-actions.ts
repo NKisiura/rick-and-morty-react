@@ -1,5 +1,13 @@
-import { createAppAsyncThunk } from "@app/store/thunk.ts";
+import { AppThunk, createAppAsyncThunk } from "@app/store/thunk.ts";
+import { charactersFilterChanged } from "@features/characters/store";
 import { CharacterFilter } from "@features/characters/model";
+
+export const updateCharactersFilterAndRefetch =
+  (filter: CharacterFilter): AppThunk =>
+  (dispatch) => {
+    dispatch(charactersFilterChanged(filter));
+    void dispatch(getCharactersByFilter(filter));
+  };
 
 export const getCharactersByFilter = createAppAsyncThunk(
   "characters/getCharactersByFilter",
