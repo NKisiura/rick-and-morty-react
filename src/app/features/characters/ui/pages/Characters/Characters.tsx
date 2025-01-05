@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { Alert, Button, Pagination } from "@nextui-org/react";
 import { useCharacters } from "@features/characters/hooks/useCharacters";
 import {
@@ -21,12 +22,6 @@ export const Characters = () => {
     (loadingStatus === "pending" || loadingStatus === "succeeded") &&
     !!paginationInfo;
 
-  const retryAction = (
-    <Button color={"danger"} onClick={handleRetry}>
-      Retry
-    </Button>
-  );
-
   return (
     <div className="container py-4">
       <div className="flex flex-col items-center gap-4">
@@ -41,10 +36,12 @@ export const Characters = () => {
         {loadingStatus === "succeeded" && (
           <CharacterList>
             {characters.map((character) => (
-              <CharacterCard
-                key={character.id}
-                character={character}
-              ></CharacterCard>
+              <Link to={character.id.toString()} key={character.id}>
+                <CharacterCard
+                  character={character}
+                  isHoverable={true}
+                ></CharacterCard>
+              </Link>
             ))}
           </CharacterList>
         )}
@@ -74,7 +71,11 @@ export const Characters = () => {
             color={"danger"}
             variant={"faded"}
             classNames={{ base: "sm:max-w-[75%] xl:max-w-[50%]" }}
-            endContent={retryAction}
+            endContent={
+              <Button color={"danger"} onClick={handleRetry}>
+                Retry
+              </Button>
+            }
           />
         )}
       </div>
