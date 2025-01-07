@@ -1,11 +1,26 @@
 import characterFallbackImageUrl from "@assets/character-card-fallback.jpeg";
-import { Card, CardBody, CardHeader, Image } from "@nextui-org/react";
+import { Card, CardBody, CardHeader, Image, Skeleton } from "@nextui-org/react";
 import { Character } from "@features/characters/model";
 
 interface CharacterCardProps {
   character: Character;
   isHoverable: boolean;
 }
+
+const CharacterCardSkeleton = () => {
+  return (
+    <Card>
+      <CardHeader className="pb-0">
+        <Skeleton className="h-7 w-3/5 rounded-lg"></Skeleton>
+      </CardHeader>
+      <CardBody>
+        <Skeleton className="rounded-lg">
+          <div className="w-[300px] pt-[100%]"></div>
+        </Skeleton>
+      </CardBody>
+    </Card>
+  );
+};
 
 export const CharacterCard = ({
   character,
@@ -30,3 +45,5 @@ export const CharacterCard = ({
     </Card>
   );
 };
+
+CharacterCard.Skeleton = CharacterCardSkeleton;

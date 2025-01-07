@@ -3,7 +3,6 @@ import { Alert, Button, Pagination } from "@nextui-org/react";
 import { useCharacters } from "@features/characters/hooks/useCharacters";
 import {
   CharacterCard,
-  CharacterSkeletonCard,
   CharacterList,
 } from "@features/characters/ui/components";
 
@@ -28,7 +27,7 @@ export const Characters = () => {
         {loadingStatus === "pending" && (
           <CharacterList>
             {Array.from({ length: 20 }).map((_, index) => (
-              <CharacterSkeletonCard key={index}></CharacterSkeletonCard>
+              <CharacterCard.Skeleton key={index}></CharacterCard.Skeleton>
             ))}
           </CharacterList>
         )}
