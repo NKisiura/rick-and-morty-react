@@ -1,13 +1,11 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@app/store/hooks.ts";
 import {
   selectCharacters,
   selectCharactersErrorMessage,
-  selectCharactersFilter,
   selectCharactersLoadingStatus,
   selectCharactersPaginationInfo,
-  charactersViewLeft,
-  updateCharactersFilterAndRefetch,
+  charactersCleaned,
   getCharactersByFilter,
 } from "@features/characters/store";
 import { useCharactersSearchParams } from "@features/characters/hooks/useCharactersSearchParams";
@@ -15,39 +13,37 @@ import { CharacterFilter } from "@features/characters/model";
 
 export const useCharacters = () => {
   const dispatch = useAppDispatch();
-  const {
-    searchParams,
-    setSearchParamsByFilter,
-    extractFilterFromSearchParams,
-  } = useCharactersSearchParams();
+  const { searchParamsFilter, setSearchParamsFilter } =
+    useCharactersSearchParams();
 
-  const filter = useAppSelector(selectCharactersFilter);
   const characters = useAppSelector(selectCharacters);
   const loadingStatus = useAppSelector(selectCharactersLoadingStatus);
   const errorMessage = useAppSelector(selectCharactersErrorMessage);
   const paginationInfo = useAppSelector(selectCharactersPaginationInfo);
 
-  const handleFilterChange = (filter: CharacterFilter) => {
-    setSearchParamsByFilter(filter);
-  };
+  const handleFilterChange = useCallback(
+    (filter: CharacterFilter) => {
+      setSearchParamsFilter(filter);
+    },
+    [setSearchParamsFilter],
+  );
 
-  const handleRetry = () => {
-    void dispatch(getCharactersByFilter(filter));
-  };
+  const handleRetry = useCallback(() => {
+    void dispatch(getCharactersByFilter(searchParamsFilter));
+  }, [dispatch, searchParamsFilter]);
 
   useEffect(() => {
-    const filter = extractFilterFromSearchParams(searchParams);
-    dispatch(updateCharactersFilterAndRefetch(filter));
-  }, [searchParams]);
+    void dispatch(getCharactersByFilter(searchParamsFilter));
+  }, [dispatch, searchParamsFilter]);
 
   useEffect(() => {
     return () => {
-      dispatch(charactersViewLeft());
+      dispatch(charactersCleaned());
     };
-  }, []);
+  }, [dispatch]);
 
   return {
-    filter,
+    filter: searchParamsFilter,
     characters,
     loadingStatus,
     errorMessage,

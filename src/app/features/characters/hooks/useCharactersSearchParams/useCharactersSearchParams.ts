@@ -1,3 +1,4 @@
+import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router";
 import {
   CharacterFilter,
@@ -8,63 +9,63 @@ import {
 export const useCharactersSearchParams = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const setSearchParamsByFilter = ({
-    page,
-    name,
-    status,
-    species,
-    type,
-    gender,
-  }: CharacterFilter) => {
-    const params = new URLSearchParams();
+  const searchParamsFilter = useMemo(
+    () => extractFilterFromSearchParams(searchParams),
+    [searchParams],
+  );
 
-    if (page) {
-      params.set("page", page.toString());
-    }
+  const setSearchParamsFilter = useCallback(
+    ({ page, name, status, species, type, gender }: CharacterFilter) => {
+      const params = new URLSearchParams();
 
-    if (name) {
-      params.set("name", name);
-    }
+      if (page) {
+        params.set("page", page.toString());
+      }
 
-    if (status) {
-      params.set("status", status);
-    }
+      if (name) {
+        params.set("name", name);
+      }
 
-    if (species) {
-      params.set("species", species);
-    }
+      if (status) {
+        params.set("status", status);
+      }
 
-    if (type) {
-      params.set("type", type);
-    }
+      if (species) {
+        params.set("species", species);
+      }
 
-    if (gender) {
-      params.set("gender", gender);
-    }
+      if (type) {
+        params.set("type", type);
+      }
 
-    setSearchParams(params);
-  };
+      if (gender) {
+        params.set("gender", gender);
+      }
 
-  const extractFilterFromSearchParams = (
-    searchParams: URLSearchParams,
-  ): CharacterFilter => {
-    const { page, name, status, species, type, gender } = Object.fromEntries(
-      searchParams.entries(),
-    );
-
-    return {
-      page: +page || null,
-      name: name || null,
-      status: status ? (status as CharacterStatus) : null,
-      species: species || null,
-      type: type || null,
-      gender: gender ? (gender as CharacterGender) : null,
-    };
-  };
+      setSearchParams(params);
+    },
+    [setSearchParams],
+  );
 
   return {
-    searchParams,
-    setSearchParamsByFilter,
-    extractFilterFromSearchParams,
+    searchParamsFilter,
+    setSearchParamsFilter,
+  };
+};
+
+const extractFilterFromSearchParams = (
+  searchParams: URLSearchParams,
+): CharacterFilter => {
+  const { page, name, status, species, type, gender } = Object.fromEntries(
+    searchParams.entries(),
+  );
+
+  return {
+    page: +page || null,
+    name: name || null,
+    status: status ? (status as CharacterStatus) : null,
+    species: species || null,
+    type: type || null,
+    gender: gender ? (gender as CharacterGender) : null,
   };
 };

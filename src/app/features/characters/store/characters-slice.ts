@@ -2,23 +2,23 @@ import {
   createEntityAdapter,
   createSlice,
   EntityState,
-  PayloadAction,
 } from "@reduxjs/toolkit";
 import { LoadingStatus, PaginationInfo } from "@shared/types/http";
-import { Character, CharacterFilter } from "@features/characters/model";
+import { Character } from "@features/characters/model";
 import { getCharactersByFilter } from "./characters-actions.ts";
 
-interface CharactersState extends EntityState<Character, number> {
-  filter: CharacterFilter;
+interface CharactersState {
+  characters: EntityState<Character, number>;
   paginationInfo: PaginationInfo | null;
   status: LoadingStatus;
   errorMessage: string | null;
 }
 
 const initialState: CharactersState = {
-  ids: [],
-  entities: {},
-  filter: {},
+  characters: {
+    ids: [],
+    entities: {},
+  },
   paginationInfo: null,
   status: "idle",
   errorMessage: null,
@@ -31,13 +31,7 @@ const charactersSlice = createSlice({
   name: "characters",
   initialState,
   reducers: {
-    charactersFilterChanged(
-      state,
-      { payload }: PayloadAction<CharacterFilter>,
-    ) {
-      state.filter = payload;
-    },
-    charactersViewLeft(state) {
+    charactersCleaned(state) {
       if (state.status !== "pending") {
         return initialState;
       }
@@ -52,35 +46,33 @@ const charactersSlice = createSlice({
 
       state.status = "succeeded";
       state.paginationInfo = info;
-      charactersAdapter.setAll(state, results);
+      charactersAdapter.setAll(state.characters, results);
     });
-
     builder.addCase(getCharactersByFilter.rejected, (state, { error }) => {
       const { message = "Couldn't fetch characters" } = error;
 
       state.status = "failed";
       state.paginationInfo = null;
       state.errorMessage = message;
-      charactersAdapter.removeAll(state);
+      charactersAdapter.removeAll(state.characters);
     });
   },
   selectors: {
-    selectCharacters: (state) => charactersSelectors.selectAll(state),
+    selectCharacters: ({ characters }) =>
+      charactersSelectors.selectAll(characters),
     selectCharactersPaginationInfo: ({ paginationInfo }) => paginationInfo,
     selectCharactersLoadingStatus: ({ status }) => status,
     selectCharactersErrorMessage: ({ errorMessage }) => errorMessage,
-    selectCharactersFilter: ({ filter }) => filter,
   },
 });
 
 const { reducer, actions, selectors } = charactersSlice;
 
 export const charactersReducer = reducer;
-export const { charactersFilterChanged, charactersViewLeft } = actions;
+export const { charactersCleaned } = actions;
 export const {
   selectCharacters,
   selectCharactersPaginationInfo,
   selectCharactersLoadingStatus,
   selectCharactersErrorMessage,
-  selectCharactersFilter,
 } = selectors;
