@@ -26,33 +26,34 @@ export default tseslint.config(
     settings: { react: { version: "18.3" } },
     plugins: {
       react,
-      "react-hooks": hooksPlugin
+      "react-hooks": hooksPlugin,
     },
     rules: {
       ...react.configs.recommended.rules,
       ...react.configs["jsx-runtime"].rules,
       ...hooksPlugin.configs.recommended.rules,
       "@typescript-eslint/no-unnecessary-type-parameters": "off",
-      '@typescript-eslint/no-unused-vars': [
-        'error',
+      "@typescript-eslint/no-floating-promises": "warn",
+      "@typescript-eslint/no-unused-vars": [
+        "error",
         {
-          varsIgnorePattern: '^_',
-          argsIgnorePattern: '^_',
+          varsIgnorePattern: "^_",
+          argsIgnorePattern: "^_",
         },
       ],
-      'no-restricted-imports': [
-        'error',
+      "no-restricted-imports": [
+        "error",
         {
           patterns: [
             {
-              group: ['lodash'],
-              message: 'Import [module] from lodash-es instead',
+              group: ["lodash"],
+              message: "Import [module] from lodash-es instead",
             },
           ],
           paths: [
             {
-              name: 'react',
-              importNames: ['default'],
+              name: "react",
+              importNames: ["default"],
               message: "React doesn't need to be in scope since version 17",
             },
           ],
