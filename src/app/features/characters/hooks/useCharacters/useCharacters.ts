@@ -1,4 +1,5 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
+import { debounce } from "lodash-es";
 import { useAppDispatch, useAppSelector } from "@app/store/hooks.ts";
 import {
   selectCharacters,
@@ -12,6 +13,8 @@ import { useCharactersSearchParams } from "@features/characters/hooks/useCharact
 import { CharacterFilter } from "@features/characters/model";
 
 export const useCharacters = () => {
+  const abortSignalRef = useRef<() => void>();
+
   const dispatch = useAppDispatch();
   const { searchParamsFilter, setSearchParamsFilter } =
     useCharactersSearchParams();
@@ -21,26 +24,59 @@ export const useCharacters = () => {
   const errorMessage = useAppSelector(selectCharactersErrorMessage);
   const paginationInfo = useAppSelector(selectCharactersPaginationInfo);
 
+  const getCharacters = useCallback(
+    (filter: CharacterFilter) => {
+      if (abortSignalRef.current) {
+        abortSignalRef.current();
+      }
+
+      const { abort } = dispatch(getCharactersByFilter(filter));
+      abortSignalRef.current = abort;
+    },
+    [dispatch],
+  );
+
+  const debouncedGetCharacters = useMemo(() => {
+    return debounce((filter: CharacterFilter) => {
+      getCharacters(filter);
+    }, 1000);
+  }, [getCharacters]);
+
   const handleFilterChange = useCallback(
     (filter: CharacterFilter) => {
-      setSearchParamsFilter(filter);
+      const nextFilter = { ...filter, page: 1 };
+
+      setSearchParamsFilter(nextFilter);
+      debouncedGetCharacters(nextFilter);
     },
-    [setSearchParamsFilter],
+    [debouncedGetCharacters, setSearchParamsFilter],
+  );
+
+  const handlePageChange = useCallback(
+    (page: number) => {
+      const filter = { ...searchParamsFilter, page };
+
+      setSearchParamsFilter(filter);
+      getCharacters(filter);
+    },
+    [getCharacters, searchParamsFilter, setSearchParamsFilter],
   );
 
   const handleRetry = useCallback(() => {
-    void dispatch(getCharactersByFilter(searchParamsFilter));
-  }, [dispatch, searchParamsFilter]);
+    getCharacters(searchParamsFilter);
+  }, [getCharacters, searchParamsFilter]);
 
   useEffect(() => {
-    void dispatch(getCharactersByFilter(searchParamsFilter));
-  }, [dispatch, searchParamsFilter]);
+    getCharacters(searchParamsFilter);
 
-  useEffect(() => {
     return () => {
+      if (abortSignalRef.current) {
+        abortSignalRef.current();
+      }
+
       dispatch(charactersCleaned());
     };
-  }, [dispatch]);
+  }, []);
 
   return {
     filter: searchParamsFilter,
@@ -48,6 +84,7 @@ export const useCharacters = () => {
     loadingStatus,
     errorMessage,
     paginationInfo,
+    handlePageChange,
     handleFilterChange,
     handleRetry,
   };

@@ -31,10 +31,8 @@ const charactersSlice = createSlice({
   name: "characters",
   initialState,
   reducers: {
-    charactersCleaned(state) {
-      if (state.status !== "pending") {
-        return initialState;
-      }
+    charactersCleaned() {
+      return initialState;
     },
   },
   extraReducers: (builder) => {
@@ -48,14 +46,21 @@ const charactersSlice = createSlice({
       state.paginationInfo = info;
       charactersAdapter.setAll(state.characters, results);
     });
-    builder.addCase(getCharactersByFilter.rejected, (state, { error }) => {
-      const { message = "Couldn't fetch characters" } = error;
+    builder.addCase(
+      getCharactersByFilter.rejected,
+      (state, { error, meta: { aborted } }) => {
+        if (aborted) {
+          return;
+        }
 
-      state.status = "failed";
-      state.paginationInfo = null;
-      state.errorMessage = message;
-      charactersAdapter.removeAll(state.characters);
-    });
+        const { message = "Couldn't fetch characters" } = error;
+
+        state.status = "failed";
+        state.paginationInfo = null;
+        state.errorMessage = message;
+        charactersAdapter.removeAll(state.characters);
+      },
+    );
   },
   selectors: {
     selectCharacters: ({ characters }) =>

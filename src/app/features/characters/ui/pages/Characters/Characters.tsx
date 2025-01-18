@@ -4,6 +4,7 @@ import { useCharacters } from "@features/characters/hooks/useCharacters";
 import {
   CharacterCard,
   CharacterList,
+  CharactersFilter,
 } from "@features/characters/ui/components";
 
 export const Characters = () => {
@@ -14,6 +15,7 @@ export const Characters = () => {
     errorMessage,
     paginationInfo,
     handleFilterChange,
+    handlePageChange,
     handleRetry,
   } = useCharacters();
 
@@ -24,6 +26,8 @@ export const Characters = () => {
   return (
     <div className="container py-4">
       <div className="flex flex-col items-center gap-4">
+        <CharactersFilter filter={filter} onFilterChange={handleFilterChange} />
+
         {loadingStatus === "pending" && (
           <CharacterList>
             {Array.from({ length: 20 }).map((_, index) => (
@@ -57,9 +61,7 @@ export const Characters = () => {
               prev: "hidden sm:flex",
               next: "hidden sm:flex",
             }}
-            onChange={(page) => {
-              handleFilterChange({ ...filter, page });
-            }}
+            onChange={handlePageChange}
           ></Pagination>
         )}
 

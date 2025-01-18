@@ -2,6 +2,7 @@ export type HttpRequestConfig = Partial<{
   headers: Record<string, string>;
   params: unknown;
   data: unknown;
+  signal: AbortSignal;
 }>;
 
 export interface HttpClient {
