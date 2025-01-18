@@ -1,0 +1,1 @@
+import{A as o,aq as s}from"./index-kd1iU-tH.js";const a=()=>(console.log("locations page loaded"),o.jsxs("div",{children:[o.jsx("div",{children:"locations page"}),o.jsx(s,{to:"1",children:"to locations details"})]}));export{a as Locations,a as default};
