@@ -1,6 +1,7 @@
 import { ToEntity } from "@shared/mappers";
 import { extractEntityIdFromUrl } from "@shared/utils/extract-entity-id-from-url";
-import { LocationLite, LocationLiteDto } from "@features/locations/model";
+import { LocationLiteDto } from "@features/locations/api";
+import { LocationLite } from "@features/locations/model";
 
 export class LocationLiteDtoMapper
   implements ToEntity<LocationLite, LocationLiteDto>

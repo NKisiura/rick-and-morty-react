@@ -1,12 +1,9 @@
 import { HttpBase } from "@shared/http-client";
 import { HttpRequestConfig } from "@shared/http-client/http-client.ts";
 import { PaginatedResponse } from "@shared/types/http";
+import { CharacterDto } from "@features/characters/api";
 import { CharacterDtoMapper } from "@features/characters/mappers";
-import {
-  Character,
-  CharacterDto,
-  CharacterFilter,
-} from "@features/characters/model";
+import { Character, CharacterFilter } from "@features/characters/model";
 
 export class CharactersService extends HttpBase {
   private readonly BASE_URL = "character";

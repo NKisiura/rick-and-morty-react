@@ -1,6 +1,5 @@
-import { CharacterStatus } from "./character-status.ts";
-import { CharacterGender } from "./character-gender.ts";
-import { LocationLiteDto } from "@features/locations/model";
+import { CharacterGender, CharacterStatus } from "@features/characters/model";
+import { LocationLiteDto } from "@features/locations/api";
 
 export interface CharacterDto {
   readonly id: number;

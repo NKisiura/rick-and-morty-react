@@ -1,6 +1,7 @@
 import { extractEntityIdFromUrl } from "@shared/utils/extract-entity-id-from-url";
 import { ToEntity } from "@shared/mappers";
-import { Character, CharacterDto } from "@features/characters/model";
+import { Character } from "@features/characters/model";
+import { CharacterDto } from "@features/characters/api";
 import { LocationLiteDtoMapper } from "@features/locations/mappers";
 
 export class CharacterDtoMapper implements ToEntity<Character, CharacterDto> {
