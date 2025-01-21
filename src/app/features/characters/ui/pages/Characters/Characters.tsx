@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Alert, Button, Pagination } from "@nextui-org/react";
+import { Alert, Button, Pagination } from "@heroui/react";
 import { useCharacters } from "@features/characters/hooks/useCharacters";
 import {
   CharacterCard,

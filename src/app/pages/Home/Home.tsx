@@ -5,7 +5,7 @@ import favouritesCardUrl from "@assets/home-favourites-card.webp";
 import decorativeCardUrl from "@assets/home-decorative-card.webp";
 
 import { Link } from "react-router";
-import { Button, Card, CardFooter, Image } from "@nextui-org/react";
+import { Button, Card, CardFooter, Image } from "@heroui/react";
 
 interface PageCard {
   cardName: string;

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { Button } from "@nextui-org/react";
+import { Button } from "@heroui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 

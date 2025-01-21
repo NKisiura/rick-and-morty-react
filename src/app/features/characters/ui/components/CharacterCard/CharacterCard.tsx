@@ -1,5 +1,5 @@
 import characterFallbackImageUrl from "@assets/character-card-fallback.jpeg";
-import { Card, CardBody, CardHeader, Image, Skeleton } from "@nextui-org/react";
+import { Card, CardBody, CardHeader, Image, Skeleton } from "@heroui/react";
 import { Character } from "@features/characters/model";
 
 interface CharacterCardProps {
