@@ -1,15 +1,9 @@
-import { useNavigate } from "react-router";
+import { Link } from "react-router";
 import { Button } from "@heroui/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 
 export const UnknownRoute = () => {
-  const navigate = useNavigate();
-
-  const handleBackToHomeClick = () => {
-    void navigate("/home");
-  };
-
   return (
     <div className="container py-4">
       <div className="flex flex-col items-center gap-4">
@@ -18,7 +12,8 @@ export const UnknownRoute = () => {
           color="success"
           variant="ghost"
           startContent={<FontAwesomeIcon icon={faArrowLeftLong} />}
-          onClick={handleBackToHomeClick}
+          as={Link}
+          to="/home"
         >
           Back to Home page
         </Button>

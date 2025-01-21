@@ -73,7 +73,7 @@ export const Characters = () => {
             variant={"faded"}
             classNames={{ base: "sm:max-w-[75%] xl:max-w-[50%]" }}
             endContent={
-              <Button color={"danger"} onClick={handleRetry}>
+              <Button color={"danger"} onPress={handleRetry}>
                 Retry
               </Button>
             }
