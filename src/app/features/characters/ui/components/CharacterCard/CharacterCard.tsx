@@ -38,7 +38,8 @@ export const CharacterCard = ({
           src={image ?? characterFallbackImageUrl}
           width={300}
           height={300}
-          className="!h-full rounded-lg"
+          radius="sm"
+          className="aspect-square !h-auto"
           alt="character image"
         ></Image>
       </CardBody>
