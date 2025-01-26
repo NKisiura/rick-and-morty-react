@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Input, Select, SelectItem, SharedSelection } from "@heroui/react";
 import {
   CharacterFilter,
@@ -17,22 +18,32 @@ export const CharactersFilter = ({
   filter,
   onFilterChange,
 }: CharactersFilterProps) => {
-  const handleStatusChange = (selection: SharedSelection) => {
-    if (selection instanceof Set) {
-      const [value] = [...selection];
-      const status = (value as CharacterStatus | undefined) ?? null;
+  const [localFilter, setLocalFilter] = useState<CharacterFilter>(filter);
 
-      onFilterChange({ ...filter, status });
-    }
+  useEffect(() => {
+    setLocalFilter(filter);
+  }, [filter]);
+
+  const handleInputChange = (
+    key: keyof Pick<CharacterFilter, "name" | "type" | "species">,
+    value: string,
+  ) => {
+    patchFilter(key, value);
   };
 
-  const handleGenderChange = (selection: SharedSelection) => {
-    if (selection instanceof Set) {
-      const [value] = [...selection];
-      const gender = (value as CharacterGender | undefined) ?? null;
+  const handleSelectChange = (
+    key: keyof Pick<CharacterFilter, "status" | "gender">,
+    selection: SharedSelection,
+  ) => {
+    const [value] = [...selection];
+    patchFilter(key, (value as string | undefined) ?? null);
+  };
 
-      onFilterChange({ ...filter, gender });
-    }
+  const patchFilter = (key: keyof CharacterFilter, value: string | null) => {
+    const nextFilter: CharacterFilter = { ...localFilter, [key]: value };
+
+    setLocalFilter(nextFilter);
+    onFilterChange(nextFilter);
   };
 
   return (
@@ -42,9 +53,9 @@ export const CharactersFilter = ({
         label="Name"
         isClearable
         size="sm"
-        defaultValue={filter.name ?? ""}
+        value={localFilter.name ?? ""}
         onValueChange={(value) => {
-          onFilterChange({ ...filter, name: value });
+          handleInputChange("name", value);
         }}
       />
       <Input
@@ -52,9 +63,9 @@ export const CharactersFilter = ({
         label="Type"
         isClearable
         size="sm"
-        defaultValue={filter.type ?? ""}
+        value={localFilter.type ?? ""}
         onValueChange={(value) => {
-          onFilterChange({ ...filter, type: value });
+          handleInputChange("type", value);
         }}
       />
       <Input
@@ -62,9 +73,9 @@ export const CharactersFilter = ({
         label="Species"
         isClearable
         size="sm"
-        defaultValue={filter.species ?? ""}
+        value={localFilter.species ?? ""}
         onValueChange={(value) => {
-          onFilterChange({ ...filter, species: value });
+          handleInputChange("species", value);
         }}
       />
       <Select
@@ -74,8 +85,10 @@ export const CharactersFilter = ({
           value: "capitalize",
           listbox: "capitalize",
         }}
-        defaultSelectedKeys={[filter.status ?? ""]}
-        onSelectionChange={handleStatusChange}
+        selectedKeys={[localFilter.status ?? ""]}
+        onSelectionChange={(selection) => {
+          handleSelectChange("status", selection);
+        }}
       >
         {statuses.map((status) => (
           <SelectItem key={status}>{status}</SelectItem>
@@ -88,8 +101,10 @@ export const CharactersFilter = ({
           value: "capitalize",
           listbox: "capitalize",
         }}
-        defaultSelectedKeys={[filter.gender ?? ""]}
-        onSelectionChange={handleGenderChange}
+        selectedKeys={[localFilter.gender ?? ""]}
+        onSelectionChange={(selection) => {
+          handleSelectChange("gender", selection);
+        }}
       >
         {genders.map((gender) => (
           <SelectItem key={gender}>{gender}</SelectItem>
