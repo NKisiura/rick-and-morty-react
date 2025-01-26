@@ -15,7 +15,7 @@ export const Characters = () => {
     errorMessage,
     paginationInfo,
     handleFilterChange,
-    handlePageChange,
+    handleFilterChangeWithDebounce,
     handleRetry,
   } = useCharacters();
 
@@ -26,7 +26,12 @@ export const Characters = () => {
   return (
     <div className="container py-4">
       <div className="flex flex-col items-center gap-4">
-        <CharactersFilter filter={filter} onFilterChange={handleFilterChange} />
+        <CharactersFilter
+          filter={filter}
+          onFilterChange={(filter) => {
+            handleFilterChangeWithDebounce({ ...filter, page: 1 });
+          }}
+        />
 
         {loadingStatus === "pending" && (
           <CharacterList>
@@ -61,7 +66,9 @@ export const Characters = () => {
               prev: "hidden sm:flex",
               next: "hidden sm:flex",
             }}
-            onChange={handlePageChange}
+            onChange={(page) => {
+              handleFilterChange({ ...filter, page });
+            }}
           ></Pagination>
         )}
 

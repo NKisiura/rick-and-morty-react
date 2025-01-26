@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router";
+import { debounce } from "lodash-es";
 import {
   CharacterFilter,
   CharacterStatus,
@@ -47,9 +48,16 @@ export const useCharactersSearchParams = () => {
     [setSearchParams],
   );
 
+  const debouncedSetSearchParamsFilter = useMemo(() => {
+    return debounce((filter: CharacterFilter) => {
+      setSearchParamsFilter(filter);
+    }, 1000);
+  }, [setSearchParamsFilter]);
+
   return {
     searchParamsFilter,
     setSearchParamsFilter,
+    debouncedSetSearchParamsFilter,
   };
 };
 

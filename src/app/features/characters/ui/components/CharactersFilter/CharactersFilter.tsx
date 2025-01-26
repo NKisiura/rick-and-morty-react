@@ -42,7 +42,7 @@ export const CharactersFilter = ({
         label="Name"
         isClearable
         size="sm"
-        value={filter.name ?? ""}
+        defaultValue={filter.name ?? ""}
         onValueChange={(value) => {
           onFilterChange({ ...filter, name: value });
         }}
@@ -52,7 +52,7 @@ export const CharactersFilter = ({
         label="Type"
         isClearable
         size="sm"
-        value={filter.type ?? ""}
+        defaultValue={filter.type ?? ""}
         onValueChange={(value) => {
           onFilterChange({ ...filter, type: value });
         }}
@@ -62,7 +62,7 @@ export const CharactersFilter = ({
         label="Species"
         isClearable
         size="sm"
-        value={filter.species ?? ""}
+        defaultValue={filter.species ?? ""}
         onValueChange={(value) => {
           onFilterChange({ ...filter, species: value });
         }}
@@ -74,7 +74,7 @@ export const CharactersFilter = ({
           value: "capitalize",
           listbox: "capitalize",
         }}
-        selectedKeys={[filter.status ?? ""]}
+        defaultSelectedKeys={[filter.status ?? ""]}
         onSelectionChange={handleStatusChange}
       >
         {statuses.map((status) => (
@@ -88,7 +88,7 @@ export const CharactersFilter = ({
           value: "capitalize",
           listbox: "capitalize",
         }}
-        selectedKeys={[filter.gender ?? ""]}
+        defaultSelectedKeys={[filter.gender ?? ""]}
         onSelectionChange={handleGenderChange}
       >
         {genders.map((gender) => (
