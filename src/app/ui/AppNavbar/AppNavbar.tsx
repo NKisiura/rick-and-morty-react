@@ -11,7 +11,7 @@ import {
   NavbarMenuItem,
   NavbarMenuToggle,
 } from "@heroui/react";
-import { NavbarGithubLink, NavbarLink } from "./components";
+import { NavbarGithubLink, NavbarLink, ThemeSwitcher } from "./components";
 
 interface NavLink {
   link: string;
@@ -63,11 +63,12 @@ export const AppNavbar = () => {
         ))}
       </NavbarContent>
       <NavbarContent justify="end">
+        <NavbarGithubLink className="hidden md:inline-flex" />
+        <ThemeSwitcher />
         <NavbarMenuToggle
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="md:hidden"
         ></NavbarMenuToggle>
-        <NavbarGithubLink className="hidden md:inline-flex" />
       </NavbarContent>
       <NavbarMenu>
         <div className="container">
