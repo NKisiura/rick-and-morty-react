@@ -10,7 +10,6 @@ export class AxiosHttpClient implements HttpClient {
     private readonly config?: AxiosRequestConfig,
   ) {
     this.client = axios.create({
-      //TODO: add params serializer
       ...(this.config ?? {}),
     });
   }

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Input, Select, SelectItem, SharedSelection } from "@heroui/react";
 import {
   CharacterFilter,
@@ -24,27 +24,36 @@ export const CharactersFilter = ({
     setLocalFilter(filter);
   }, [filter]);
 
-  const handleInputChange = (
-    key: keyof Pick<CharacterFilter, "name" | "type" | "species">,
-    value: string,
-  ) => {
-    patchFilter(key, value);
-  };
+  const patchFilter = useCallback(
+    (key: keyof CharacterFilter, value: string | null) => {
+      const nextFilter: CharacterFilter = { ...localFilter, [key]: value };
 
-  const handleSelectChange = (
-    key: keyof Pick<CharacterFilter, "status" | "gender">,
-    selection: SharedSelection,
-  ) => {
-    const [value] = [...selection];
-    patchFilter(key, (value as string | undefined) ?? null);
-  };
+      setLocalFilter(nextFilter);
+      onFilterChange(nextFilter);
+    },
+    [localFilter, onFilterChange],
+  );
 
-  const patchFilter = (key: keyof CharacterFilter, value: string | null) => {
-    const nextFilter: CharacterFilter = { ...localFilter, [key]: value };
+  const handleInputChange = useCallback(
+    (
+      key: keyof Pick<CharacterFilter, "name" | "type" | "species">,
+      value: string,
+    ) => {
+      patchFilter(key, value);
+    },
+    [patchFilter],
+  );
 
-    setLocalFilter(nextFilter);
-    onFilterChange(nextFilter);
-  };
+  const handleSelectChange = useCallback(
+    (
+      key: keyof Pick<CharacterFilter, "status" | "gender">,
+      selection: SharedSelection,
+    ) => {
+      const [value] = [...selection];
+      patchFilter(key, (value as string | undefined) ?? null);
+    },
+    [patchFilter],
+  );
 
   return (
     <form className="grid w-full grid-cols-1 gap-2 rounded-xl border border-default-200 p-2 sm:grid-cols-3 lg:grid-cols-5 lg:gap-4 lg:p-3">
