@@ -7,21 +7,6 @@ interface CharacterCardProps {
   isHoverable: boolean;
 }
 
-const CharacterCardSkeleton = () => {
-  return (
-    <Card>
-      <CardHeader className="pb-0">
-        <Skeleton className="h-7 w-3/5 rounded-lg"></Skeleton>
-      </CardHeader>
-      <CardBody>
-        <Skeleton className="rounded-lg">
-          <div className="w-[300px] pt-[100%]"></div>
-        </Skeleton>
-      </CardBody>
-    </Card>
-  );
-};
-
 export const CharacterCard = ({
   character,
   isHoverable,
@@ -42,6 +27,21 @@ export const CharacterCard = ({
           className="aspect-square !h-auto"
           alt="character image"
         ></Image>
+      </CardBody>
+    </Card>
+  );
+};
+
+const CharacterCardSkeleton = () => {
+  return (
+    <Card>
+      <CardHeader className="pb-0">
+        <Skeleton className="h-7 w-3/5 rounded-lg"></Skeleton>
+      </CardHeader>
+      <CardBody>
+        <Skeleton className="rounded-lg">
+          <div className="w-[300px] pt-[100%]"></div>
+        </Skeleton>
       </CardBody>
     </Card>
   );
