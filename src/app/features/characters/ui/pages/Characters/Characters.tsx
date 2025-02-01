@@ -1,5 +1,6 @@
 import { Link } from "react-router";
-import { Alert, Button, Pagination } from "@heroui/react";
+import { Button, Pagination } from "@heroui/react";
+import { ErrorMessage } from "@shared/ui/ErrorMessage";
 import { useCharacters } from "@features/characters/hooks/useCharacters";
 import {
   CharacterCard,
@@ -73,13 +74,11 @@ export const Characters = () => {
         )}
 
         {loadingStatus === "failed" && (
-          <Alert
+          <ErrorMessage
             title={"Error"}
-            description={errorMessage}
-            color={"danger"}
-            variant={"faded"}
-            classNames={{ base: "sm:max-w-[75%] xl:max-w-[50%]" }}
-            endContent={
+            description={errorMessage ?? "Failed load characters!"}
+            classNames="lg:max-w-[75%] xl:max-w-[50%]"
+            actionButtonSlot={
               <Button color={"danger"} onPress={handleRetry}>
                 Retry
               </Button>
