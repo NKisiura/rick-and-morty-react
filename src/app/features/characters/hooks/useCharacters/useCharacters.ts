@@ -1,19 +1,21 @@
 import { useCallback, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@app/store/hooks.ts";
+import { useConcurrentDispatchAborter } from "@app/hooks/useConcurrentDispatchAborter";
 import {
   selectCharacters,
   selectCharactersErrorMessage,
   selectCharactersLoadingStatus,
   selectCharactersPaginationInfo,
   charactersCleaned,
+  getCharactersByFilter as getCharactersByFilterAction,
 } from "@features/characters/store";
-import { useAbortableGetCharactersByFilter } from "@features/characters/hooks/useAbortableGetCharactersByFilter";
 import { useCharactersSearchParams } from "@features/characters/hooks/useCharactersSearchParams";
 import { CharacterFilter } from "@features/characters/model";
 
 export const useCharacters = () => {
   const dispatch = useAppDispatch();
-  const { getCharactersByFilter } = useAbortableGetCharactersByFilter();
+  const concurrentDispatchAborter = useConcurrentDispatchAborter();
+
   const {
     searchParamsFilter,
     setSearchParamsFilter,
@@ -24,6 +26,16 @@ export const useCharacters = () => {
   const loadingStatus = useAppSelector(selectCharactersLoadingStatus);
   const errorMessage = useAppSelector(selectCharactersErrorMessage);
   const paginationInfo = useAppSelector(selectCharactersPaginationInfo);
+
+  const getCharactersByFilter = useCallback(
+    (filter: CharacterFilter) => {
+      concurrentDispatchAborter(
+        dispatch(getCharactersByFilterAction(filter)),
+        getCharactersByFilterAction.typePrefix,
+      );
+    },
+    [concurrentDispatchAborter, dispatch],
+  );
 
   const handleFilterChange = useCallback(
     (filter: CharacterFilter) => {
