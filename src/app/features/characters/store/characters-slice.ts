@@ -5,7 +5,10 @@ import {
 } from "@reduxjs/toolkit";
 import { LoadingStatus, PaginationInfo } from "@shared/types/http";
 import { Character } from "@features/characters/model";
-import { getCharactersByFilter } from "./characters-actions.ts";
+import {
+  getCharacterById,
+  getCharactersByFilter,
+} from "./characters-actions.ts";
 
 interface CharactersState {
   characters: EntityState<Character, number>;
@@ -53,10 +56,33 @@ const charactersSlice = createSlice({
           return;
         }
 
-        const { message = "Couldn't fetch characters" } = error;
+        const { message = "Failed load characters!" } = error;
 
         state.status = "failed";
         state.paginationInfo = null;
+        state.errorMessage = message;
+        charactersAdapter.removeAll(state.characters);
+      },
+    );
+    builder.addCase(getCharacterById.pending, (state) => {
+      state.status = "pending";
+    });
+    builder.addCase(getCharacterById.fulfilled, (state, { payload }) => {
+      const character = payload;
+
+      state.status = "succeeded";
+      charactersAdapter.setAll(state.characters, [character]);
+    });
+    builder.addCase(
+      getCharacterById.rejected,
+      (state, { error, meta: { aborted } }) => {
+        if (aborted) {
+          return;
+        }
+
+        const { message = "Failed load character!" } = error;
+
+        state.status = "failed";
         state.errorMessage = message;
         charactersAdapter.removeAll(state.characters);
       },

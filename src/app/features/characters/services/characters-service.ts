@@ -8,11 +8,15 @@ import { Character, CharacterFilter } from "@features/characters/model";
 export class CharactersService extends HttpBase {
   private readonly BASE_URL = "character";
 
-  async getCharacterById(id: number): Promise<Character> {
+  async getCharacterById(
+    id: number,
+    config?: Pick<HttpRequestConfig, "signal">,
+  ): Promise<Character> {
     const characterDtoMapper = new CharacterDtoMapper();
 
     const { data } = await this.http.get<CharacterDto>(
       `${this.BASE_URL}/${id.toString()}`,
+      { ...config },
     );
 
     return characterDtoMapper.toEntity(data);

@@ -9,3 +9,12 @@ export const getCharactersByFilter = createAppAsyncThunk(
     return charactersService.getCharactersByFilter(filter, { signal });
   },
 );
+
+export const getCharacterById = createAppAsyncThunk(
+  "characters/getCharacterById",
+  (characterId: number, { extra, signal }) => {
+    const { charactersService } = extra.services;
+
+    return charactersService.getCharacterById(characterId, { signal });
+  },
+);
