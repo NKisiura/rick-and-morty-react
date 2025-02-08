@@ -76,7 +76,7 @@ export const Characters = () => {
         {loadingStatus === "failed" && (
           <ErrorMessage
             title={"Error"}
-            description={errorMessage ?? "Failed load characters!"}
+            description={errorMessage ?? "Failed to load characters!"}
             classNames="lg:max-w-[75%] xl:max-w-[50%]"
             actionButtonSlot={
               <Button color={"danger"} onPress={handleRetry}>

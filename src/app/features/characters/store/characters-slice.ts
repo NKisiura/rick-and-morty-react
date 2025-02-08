@@ -56,7 +56,7 @@ const charactersSlice = createSlice({
           return;
         }
 
-        const { message = "Failed load characters!" } = error;
+        const { message = "Failed to load characters!" } = error;
 
         state.status = "failed";
         state.paginationInfo = null;
@@ -80,7 +80,7 @@ const charactersSlice = createSlice({
           return;
         }
 
-        const { message = "Failed load character!" } = error;
+        const { message = "Failed to load character!" } = error;
 
         state.status = "failed";
         state.errorMessage = message;
