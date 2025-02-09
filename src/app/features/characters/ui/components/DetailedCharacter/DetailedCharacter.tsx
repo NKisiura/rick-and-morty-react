@@ -66,7 +66,7 @@ export const DetailedCharacter = ({ character }: DetailedCharacterProps) => {
               <CharacterProperty name={"origin location"}>
                 <Link
                   className="underline underline-offset-2 transition-colors hover:text-foreground/80"
-                  to={`/location/${origin.id.toString()}`}
+                  to={`/locations/${origin.id.toString()}`}
                 >
                   <FontAwesomeIcon icon={faLink} /> {origin.name}
                 </Link>
@@ -76,7 +76,7 @@ export const DetailedCharacter = ({ character }: DetailedCharacterProps) => {
               <CharacterProperty name={"last location"}>
                 <Link
                   className="underline underline-offset-2 transition-colors hover:text-foreground/80"
-                  to={`/location/${location.id.toString()}`}
+                  to={`/locations/${location.id.toString()}`}
                 >
                   <FontAwesomeIcon icon={faLink} /> {location.name}
                 </Link>
