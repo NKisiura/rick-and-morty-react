@@ -3,9 +3,11 @@ import { AxiosHttpClient } from "@shared/http-client";
 import { useConfig } from "@app/hooks/useConfig";
 
 import { CharactersService } from "@features/characters/services";
+import { EpisodesService } from "@features/episodes/services";
 
 export interface Services {
   charactersService: CharactersService;
+  episodesService: EpisodesService;
 }
 
 interface ServicesProviderProps {
@@ -16,9 +18,11 @@ const initServices = (apiBaseUrl: string): Services => {
   const httpClient = new AxiosHttpClient(apiBaseUrl);
 
   const charactersService = new CharactersService(httpClient);
+  const episodesService = new EpisodesService(httpClient);
 
   return {
     charactersService,
+    episodesService,
   };
 };
 

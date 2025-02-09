@@ -14,7 +14,7 @@ export const CharacterCard = ({
   const { name, image } = character;
 
   return (
-    <Card isHoverable={isHoverable}>
+    <Card isHoverable={isHoverable} className="h-full">
       <CardHeader className="pb-0">
         <p className="text-start text-xl font-semibold">{name}</p>
       </CardHeader>
