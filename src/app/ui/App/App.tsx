@@ -15,6 +15,12 @@ const CharacterDetails = lazy(
       "@features/characters/ui/pages/CharacterDetails/CharacterDetails.tsx"
     ),
 );
+const Episodes = lazy(
+  () => import("@features/episodes/ui/pages/Episodes/Episodes.tsx"),
+);
+const EpisodeDetails = lazy(
+  () => import("@features/episodes/ui/pages/EpisodeDetails/EpisodeDetails.tsx"),
+);
 const Locations = lazy(
   () => import("@features/locations/ui/pages/Locations/Locations.tsx"),
 );
@@ -44,6 +50,24 @@ export const App = () => {
               element={
                 <Suspense key="character-details" fallback={<AppPageLoader />}>
                   <CharacterDetails />
+                </Suspense>
+              }
+            ></Route>
+          </Route>
+          <Route path="episodes">
+            <Route
+              index
+              element={
+                <Suspense key="episodes" fallback={<AppPageLoader />}>
+                  <Episodes />
+                </Suspense>
+              }
+            ></Route>
+            <Route
+              path=":id"
+              element={
+                <Suspense key="episode-details" fallback={<AppPageLoader />}>
+                  <EpisodeDetails />
                 </Suspense>
               }
             ></Route>
